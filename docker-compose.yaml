@@ -1,0 +1,45 @@
+# Network
+networks:
+  default:
+    name: doppalf-bnw
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.22.0.0/16
+          ip_range: 172.22.0.0/16
+          gateway: 172.22.0.1
+
+# Services
+services:
+  # NGINX as ReverseProxy
+  nginx-rp:
+    container_name: nginx-rp-service
+    build:
+      context: ./nginx-rp
+    ports:
+      - 80:80
+
+  # UI Service
+  doppalf-ui:
+    container_name: doppalf-ui-service
+    build:
+      context: ./doppalf-ui
+      dockerfile: Dockerfile
+      target: ${UI_TARGET_STAGE:-dev}
+    volumes:
+      - ./doppalf-ui:/app # Automatic Reloading for development
+
+  # Backend Python Service
+  doppalf-ai:
+    container_name: doppalf-ai-service
+    build:
+      context: ./doppalf-ai
+    networks:
+      # Static IP is only for testing from outside
+      # Should be removed in Production
+      default:
+        ipv4_address: 172.22.0.4
+    ports:
+      - 4001:4001
+    volumes:
+      - ./doppalf-ai:/app # Automatic Reloading for development

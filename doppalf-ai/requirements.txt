@@ -1,0 +1,4 @@
+cohere==5.3.3
+fastapi==0.110.0
+python-dotenv==1.0.1
+uvicorn==0.29.0

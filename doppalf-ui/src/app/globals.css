@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --seasalt: hsla(0, 0%, 98%, 1);
+  --rich-black: hsla(203, 90%, 4%, 1);
+  --pistachio: hsla(109, 46%, 68%, 1);
+  --jasmine: hsla(45, 100%, 73%, 1);
+  --bright-pink: hsla(348, 88%, 66%, 1);
+  --light-sky-blue: hsla(204, 85%, 79%, 1);
+  --tomato: hsla(10, 93%, 64%, 1);
+  --tomato-70-op: hsla(10, 93%, 64%, 0.7);
+  --tomato-50-op: hsla(10, 93%, 64%, 0.5);
+
+  --dark-rich-black: hsla(216, 100%, 4%, 1);
+  --dark-mint-cream: hsla(133, 100%, 98%, 1);
+  --dark-pistachio: hsla(109, 46%, 68%, 1);
+  --dark-jasmine: hsla(45, 100%, 73%, 1);
+  --dark-bright-pink: hsla(348, 88%, 66%, 1);
+  --dark-uranian-blue: hsla(203, 85%, 84%, 1);
+  --dark-tomato: hsla(10, 93%, 60%, 1);
+  --dark-mint-cream-70-op: hsla(133, 100%, 98%, 0.7);
+  --dark-mint-cream-60-op: hsla(133, 100%, 98%, 0.6);
+
+  --scrollbar-width: 0.7rem;
+  --scrollbar-width-input: 0.4rem;
+}
+
+textarea {
+  cursor: auto;
+}
+
+.scrollBar::-webkit-scrollbar {
+  width: var(--scrollbar-width);
+}
+
+.scrollBar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 10px var(--tomato-70-op);
+  border-radius: 15px;
+}
+
+.scrollBar::-webkit-scrollbar-thumb {
+  background: var(--tomato-50-op);
+  border-radius: 15px;  
+}
+
+html.dark .scrollBar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 10px var(--dark-mint-cream-60-op);
+}
+
+html.dark .scrollBar::-webkit-scrollbar-thumb {
+  background: var(--dark-mint-cream-70-op);
+}
+
+.inputScrollBar::-webkit-scrollbar {
+  width: var(--scrollbar-width-input);
+}
+
+.inputScrollBar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px var(--tomato-70-op);
+  border-radius: 10px;
+}
+
+.inputScrollBar::-webkit-scrollbar-thumb {
+  background: var(--tomato-50-op);
+  border-radius: 10px;  
+}
+
+html.dark .inputScrollBar::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px var(--dark-mint-cream-60-op);
+}
+
+html.dark .inputScrollBar::-webkit-scrollbar-thumb {
+  background: var(--dark-mint-cream-70-op);
+}
