@@ -8,9 +8,7 @@ function reducer(_: boolean, action: {value: boolean}): boolean {
 
 export default function ToggleTheme() {
     // Check if there is localstorage set for dark-mode.
-    // If no key, then disable dark-mode
-    const isDarkModeEnabled = localStorage.getItem('darkMode');
-    const [darkMode, dispatch] = useReducer(reducer, isDarkModeEnabled && isDarkModeEnabled=="true"? true: false)
+    const [darkMode, dispatch] = useReducer(reducer, false)
 
     const toggleTheme = () => {
         if(!darkMode) {
