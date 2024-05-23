@@ -10,8 +10,13 @@ from src.utils.utils import check_all_dict_keys_not_none
 load_dotenv()
 
 env_keys = {
-    "AI_MODEL_INFERENCE_TYPE": "AI_MODEL_INFERENCE_TYPE",
-    "AI_MODEL_API_KEY": "AI_MODEL_API_KEY",
+    "DOCS_DIR": "DOCS_DIR",
+    "INDEX_STORAGE_DIR": "INDEX_STORAGE_DIR",
+    "COLLECTION_NAME": "COLLECTION_NAME",
+    "MAX_BUFFER_MEMORY_TOKENS": "MAX_BUFFER_MEMORY_TOKENS",
+    "COHERE_API_KEY": "COHERE_API_KEY",
+    "QDRANT_API_KEY": "QDRANT_API_KEY",
+    "QDRANT_CLOUD_URL": "QDRANT_CLOUD_URL",
 }
 
 class ENV():

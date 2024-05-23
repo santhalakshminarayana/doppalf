@@ -1,39 +1,30 @@
-import json
-
-import cohere
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Response
 from starlette.responses import StreamingResponse
 
-from src.config.env import ENV, env_keys
-from src.config.logger import get_logger
-
+from .rag import chat, reset_chat_memory, get_collections
 from .models import GenerateModel
 
-logger = get_logger()
 grouter = APIRouter(tags=["generate"])
-
-API_KEY = ENV().get(env_keys["AI_MODEL_API_KEY"])
-
-
-def generate_message(prompt: str):
-    co = cohere.Client(api_key=API_KEY)
-    stream = co.chat_stream(
-        message=prompt,
-        prompt_truncation="OFF", 
-        temperature=0.8,
-    )
-
-    for event in stream:
-        if event.event_type == "text-generation":
-            yield f"data: {json.dumps({"message":event.text})}\n\n"
 
 
 @grouter.post("")
 async def generate(data: GenerateModel):
     try:
         return StreamingResponse(
-            generate_message(data.message), 
+            chat(data.message), 
             media_type='text/event-stream',
         )
     except Exception as e:
         raise HTTPException(status_code=500, detail=e)
+
+
+@grouter.post("/new-session")
+def new_session():
+    reset_chat_memory()
+    return Response(status_code=200)
+
+
+@grouter.get("/collections")
+def get_collections_list():
+    collections = get_collections()
+    return {"collections": collections}

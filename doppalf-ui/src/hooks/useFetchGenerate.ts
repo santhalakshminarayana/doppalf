@@ -21,6 +21,14 @@ export const useFetchGenerate = ({ url, promptMessage, addData}: PropTypes) => {
         const signal = newAbortController.signal;
 
         const fetchData = async () => {
+
+            const timeoutFC = setTimeout(() => {
+                console.log("aborted-time out")
+                abortController?.abort();
+                setIsDone(true);
+                setErrorMessage('Request timed out');
+            }, 30000);
+
             try {
                 await fetchEventSource(url, {
                     method: 'POST',
@@ -32,6 +40,7 @@ export const useFetchGenerate = ({ url, promptMessage, addData}: PropTypes) => {
                     openWhenHidden: true,
                     
                     onopen: async (res) => {
+                        clearTimeout(timeoutFC);
                         if (res.status >= 400 && res.status < 500 && res.status !== 429) {
                             console.log("Client Side error:", res);
                             setIsDone(true);
@@ -57,10 +66,14 @@ export const useFetchGenerate = ({ url, promptMessage, addData}: PropTypes) => {
                     },
     
                     onerror: (err) => {
-                        throw err;
+                        setIsDone(true);
+                        setAbortController(null);
+                        console.log("Error fetching data:", err)
+                        setErrorMessage("Error fetching data.")
                     }
                 })
             } catch (e) {
+                clearTimeout(timeoutFC);
                 console.log("Error fetching data:", e)
                 abortController?.abort()
                 setIsDone(true);
@@ -83,11 +96,12 @@ export const useFetchGenerate = ({ url, promptMessage, addData}: PropTypes) => {
 
 
     useEffect(() => {
-        return () => {
-            setAbortController(null);
-            setIsDone(true);
-        };
-    }, [abortController]);
+        if (isDone == true) {
+            return () => {
+                setAbortController(null);
+            };
+        }
+    }, [isDone]);
 
     return {startFetch, stopFetch, isDone, errorMessage};
 }
