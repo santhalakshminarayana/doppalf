@@ -1,5 +1,7 @@
 # Doppalf - A RAG powered AI Chatbot
 
+![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi) ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
+
 ### What is Doppalf means?
 
 **Doppalf** is a combination of two words **Dopple** and **Gandalf** (LOTR). Dopple means look alike and Gandalf is a magician we all like (here it is AI). So, Doppalf means a person who looks like you but posses magic.
@@ -24,6 +26,7 @@ This application comes with the ChatGPT like streaming UI and provide familiar U
   - Tailwind CSS
 - **Backend** (doppalf-ai):
   - Python (v3.12)
+  - FastAPI
   - Llamaindex
   - Cohere
   - Qdrant Cloud
