@@ -12,7 +12,9 @@ The purpose of this application is to build your own AI personal assistant with 
 - Give your AI a character (example below)
 - Just as a free and local AI assistant like ChatGPT
 
-This application comes with the ChatGPT like streaming UI and provide familiar UI interface.
+This application comes with the ChatGPT like streaming UI and provides familiar UI interface.
+
+![Doppalf AI](/static/doppalf-response.gif)
 
 ## System architecture
 
@@ -167,3 +169,18 @@ $ docker compose up -d --build
 ```
 
 This will pulls the sepcified docker images and builds the application. Once the application is built, access it at _127.0.0.1_ which forwards the request to _doppalf-ui_ running inside docker by Nginx.
+
+---
+
+### Features
+
+- RAG integrated AI chatbot
+- Streaming UI like ChatGPT
+- Create chat new session (Actions)
+
+### TODO
+
+- Support for adding documents from UI
+- Text-to-speech of AI response
+- Voice cloning
+- Support various LLMs integration
