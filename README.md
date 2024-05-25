@@ -1,10 +1,12 @@
-# Doppalf - A RAG powered AI Chatbot
+# Doppalf - A RAG-powered AI Chatbot
 
 ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white) ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54) ![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi) ![Next JS](https://img.shields.io/badge/Next-black?style=for-the-badge&logo=next.js&logoColor=white) ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white) ![TailwindCSS](https://img.shields.io/badge/tailwindcss-%2338B2AC.svg?style=for-the-badge&logo=tailwind-css&logoColor=white)
 
-### What is Doppalf means?
+> Read more about this project at my blog about [Doppalf: RAG-powered fullstack AI chatbot like ChatGPT](https://santhalakshminarayana.github.io/blog/doppalf-rag-powered-ai-chatbot)
 
-**Doppalf** is a combination of two words **Dopple** and **Gandalf** (LOTR). Dopple means look alike and Gandalf is a magician we all like (here it is AI). So, Doppalf means a person who looks like you but posses magic.
+### What does Doppalf mean?
+
+**Doppalf** is a combination of two words **Dopple** and **Gandalf** (LOTR). Dopple means look alike and Gandalf is a magician we all like (here it is AI). So, Doppalf means a person who looks like you but possesses magic.
 
 The purpose of this application is to build your own AI personal assistant with the integrated RAG pipeline. You can use this for multiple purposes like:
 
@@ -12,7 +14,7 @@ The purpose of this application is to build your own AI personal assistant with 
 - Give your AI a character (example below)
 - Just as a free and local AI assistant like ChatGPT
 
-This application comes with the ChatGPT like streaming UI and provides familiar UI interface.
+This application comes with the ChatGPT like streaming UI and provides a familiar UI interface.
 
 ![Doppalf AI](/static/doppalf-response.gif)
 
@@ -39,11 +41,11 @@ The name of the Python backend server is **doppalf-ai** and the name of the Next
 
 ![Doppalf Architecture](/static/doppalf-arch.png)
 
-When user interacts with the web app at localhost (127.0.0.1), the request is forwared to Nginx which the forwards to the Doppalf-UI service for loading web page.
+When the user interacts with the web app at localhost (127.0.0.1), the request is forwarded to Nginx which forwards to the Doppalf-UI service for loading the web page.
 
 ![Doppalf UI Landing Page](/static/doppalf-ui-landing-page.png)
 
-And when a user type the query, the Next.js app requests the Python server for the answer generation.
+When a user types the query, the Next.js app requests the Python server for the answer generation.
 
 ![Doppalf UI Landing Page](/static/doppalf-ui-query-response.png)
 
@@ -105,11 +107,11 @@ And when a user type the query, the Next.js app requests the Python server for t
 
 ### Required steps
 
-This project is an end-to-end web application that can be run locally and free of cost with getting required API keys.
+This project is an end-to-end web application that can be run locally and free of cost by getting the required API keys for free.
 
 Get the free [Cohere API trail Key](https://dashboard.cohere.com/api-keys) to use Cohere as LLM.
 
-And get the free [Qdrant Cloud API Key and URL](https://cloud.qdrant.io) where you can get a free 1 GB cluster for storing Vector embeddings.
+Get the free [Qdrant Cloud API Key and URL](https://cloud.qdrant.io) where you can get a free 1 GB cluster for storing Vector embeddings.
 
 These two are required to integrate with **Llamaindex** where we use
 
@@ -128,23 +130,23 @@ QDRANT_CLOUD_URL=<qdrant-cloud-url>
 ...
 ```
 
-Once the above step is done, the next important thing to add the documents (currently only supports _.txt_ files) inside the directory _doppalf-ai/documents_. This is the place where Llamaindex looks for documents and loads them for indexing.
+Once the above step is done, the next important thing is to add the documents (currently only supports _.txt_ files) inside the directory _doppalf-ai/documents_. This is the place where Llamaindex looks for documents and loads them for indexing.
 
 > You can change the default location for documents in the .env file for key _DOCS_DIR_.
 
-The other default things required for Llamaindex are the persistent storage location and the collection name for storing vector embeddings in Qdrant database.
+The other default things required for Llamaindex are the persistent storage location and the collection name for storing vector embeddings in the Qdrant database.
 
-> These fields are also changable in .env file
+> These fields are also changeable in the .env file
 
 As we are building a chat engine with LLM, and for every LLM we need to provide a custom prompt for better answer generation. As I have used this for AI to answer about me, I have used the following prompt
 
 ```python
 CHAT_PROMPT=(
     "You are impersonating the human 'Lakshmi Narayana' and so your name."
-    "So you are Lakshmi Narayana and answers as first person.When asked any question about you, you will answer as if Lakshmi Narayana is answering."
-    "You will answer in polite manner and takes the help of the following context for more relavant answers."
-    "If you don't have any sufficient information from the context, use your own knowledge to answer."
-    "Or don't hallicunate if you are sure you cannot answer."
+    "So you are Lakshmi Narayana and answers in first person.When asked any question about you, you will answer as if Lakshmi Narayana is answering."
+    "You will answer politely and take the help of the following context for more relevant answers."
+    "If you don't have any sufficient information from the context, use your knowledge to answer."
+    "Or don't hallucinate if you are sure you cannot answer."
     "Here are the relevant documents for the context:\n{context_str}\n"
     "Instruction: Use the previous chat history, or the context above, to interact and help the user and answer as if you are Lakshmi Narayana."
     "Don't add any additional data if the answer can be derived from context."
@@ -154,21 +156,31 @@ CHAT_PROMPT=(
 
 > The default prompt can be found at _/doppalf-ai/src/generate/constants.py_. You can change it according to your use case
 
----
+The final RAG pipeline looks like
+
+![RAG Pipeline](/static/rag-pipeline.jpg)
 
 ## Running the application
 
-Once all the required steps are done, we can run the application but first we need to build it.
+Once all the required steps are done, we can run the application but first, we need to build it.
 
-> For Next.js building, Dockerfile has multiple build stages such as _dev_ and _prod_. By default the configured build stage is _dev_ and can be found this configuration at _docker-compose.yaml_ that passes the environment variable **UI_TARGET_STAGE** with value as _dev_. You can set the build stage environment variable by running the _config.sh_.
+> For Next.js building, Dockerfile has multiple build stages such as _dev_ and _prod_. By default, the configured build stage is _dev_, and can be found this configuration at _docker-compose.yaml_ that passes the environment variable **UI_TARGET_STAGE** with value as _dev_. You can set the build stage environment variable by running the _config.sh_.
 
-For first time building the application, in the root docker-compose file location, run the following command
+For the first time building the application, in the root docker-compose file location, run the following command
 
 ```shell
 $ docker compose up -d --build
 ```
 
-This will pulls the sepcified docker images and builds the application. Once the application is built, access it at _127.0.0.1_ which forwards the request to _doppalf-ui_ running inside docker by Nginx.
+This will pull the specified docker images and build the application. Once the application is built, access it at _127.0.0.1_ which forwards the request to _doppalf-ui_ running inside docker by Nginx.
+
+The following is a sample example of the chatbot with memory of user interactivity
+
+![Doppalf AI Chatbot with history](/static/query-response-history.png)
+
+**New Chat Session**
+
+![New Chat Session](/static/new-chat.gif)
 
 ---
 
@@ -176,11 +188,11 @@ This will pulls the sepcified docker images and builds the application. Once the
 
 - RAG integrated AI chatbot
 - Streaming UI like ChatGPT
-- Create chat new session (Actions)
+- Create a new chat session (Actions)
 
 ### TODO
 
-- Support for adding documents from UI
+- Support for adding documents from the UI
 - Text-to-speech of AI response
 - Voice cloning
-- Support various LLMs integration
+- Support various LLM integration
