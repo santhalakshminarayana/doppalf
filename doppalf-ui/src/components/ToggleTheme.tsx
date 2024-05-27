@@ -26,9 +26,15 @@ export default function ToggleTheme() {
         const isDarkMode = localStorage.getItem('darkMode');
         // If the localstorage key exists and it is false and also the state is also false
         // then disable dark-mode
+        console.log(isDarkMode, darkMode)
         if ((isDarkMode && isDarkMode=="false") && darkMode==false) {
             document.documentElement.classList.remove('dark');
             localStorage.setItem('darkMode', 'false');
+            dispatch({ value: false});
+            return
+        } else if (isDarkMode=="true") {
+            document.documentElement.classList.add('dark');
+            dispatch({ value: true});
             return
         }
 
